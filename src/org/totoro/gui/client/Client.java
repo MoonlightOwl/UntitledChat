@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.nio.charset.StandardCharsets;
 
 /**
  * untitled.Client
@@ -48,7 +49,7 @@ public class Client {
             // try to connect
             socket = new Socket();
             socket.connect(new InetSocketAddress(ip, Const.Port), TIMEOUT);
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
             out = new PrintWriter(socket.getOutputStream());
 
             // start
@@ -111,7 +112,9 @@ public class Client {
             try {
                 while(!stoped){
                     String message = in.readLine();
-                    listener.messageReceived(MessageListener.MESSAGE, message);
+                    if(message != null)
+                        listener.messageReceived(MessageListener.MESSAGE, message);
+                    else setStop();
                 }
             } catch (IOException e) {
                 System.err.println("[Client] Message receiving error! Connection lost.");
