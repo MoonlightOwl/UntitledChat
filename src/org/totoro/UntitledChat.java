@@ -62,14 +62,13 @@ public class UntitledChat {
                 while ((count = reader.read(buff)) != -1) {
                     allText.append(buff, 0, count);
                 }
-                // Строка содержащая IP имеет следующий вид
+                // The string containing IP address is the following:
                 // <a href="whois.php?127.0.0.1">whois 127.0.0.1</a>
                 Integer indStart = allText.indexOf("\">whois ");
                 Integer indEnd = allText.indexOf("</a>", indStart);
 
                 String ipAddress = allText.substring(indStart + 8, indEnd);
-                if (ipAddress.split("\\.").length == 4) { // минимальная (неполная)
-                    //проверка что выбранный текст является ip адресом.
+                if (ipAddress.split("\\.").length == 4) { // minimal IP validation
                     result = ipAddress;
                 }
             } catch (MalformedURLException ex) {

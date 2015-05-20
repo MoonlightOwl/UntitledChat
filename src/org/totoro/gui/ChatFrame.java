@@ -1,5 +1,6 @@
 package org.totoro.gui;
 
+import org.totoro.Const;
 import org.totoro.gui.client.Client;
 import org.totoro.gui.client.MessageListener;
 
@@ -24,8 +25,8 @@ public class ChatFrame extends JFrame {
     private MessageListener messageListener;
 
     private JoinDialog joinDialog;
-    private String serverIP = "37.55.85.121";
-    private String nickname = "Totoro";
+    private String serverIP = Const.IP;
+    private String nickname = Const.Nickname;
     private Client client;
 
     public ChatFrame(){
