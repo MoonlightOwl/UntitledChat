@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
+import java.nio.charset.StandardCharsets;
 
 /**
  * untitled.Server
@@ -71,7 +72,7 @@ public class Server {
             this.socket = socket;
 
             try {
-                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                in = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
                 out = new PrintWriter(socket.getOutputStream(), true);
             } catch (IOException e) {
                 close();
@@ -110,7 +111,6 @@ public class Server {
                         for(Connection connection: connections){
                             if(fromServer){
                                 connection.out.println("Server: "+message);
-                                fromServer = false;
                             }
                             else
                                 connection.out.println(nickname+": "+message);
