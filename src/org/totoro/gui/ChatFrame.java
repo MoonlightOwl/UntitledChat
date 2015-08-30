@@ -11,7 +11,6 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Random;
 
 public class ChatFrame extends JFrame {
     private JTextPane textPane;
@@ -52,9 +51,7 @@ public class ChatFrame extends JFrame {
                     xToolkit.getClass().getDeclaredField("awtAppClassName");
             awtAppClassNameField.setAccessible(true);
             awtAppClassNameField.set(xToolkit, "[Untitled Chat]");
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
 

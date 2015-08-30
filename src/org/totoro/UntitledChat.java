@@ -9,7 +9,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 
@@ -23,27 +22,25 @@ public class UntitledChat {
 
             System.out.println("Enter your command:");
 
+            chat:
             while (true) {
                 command = scan.next();
-                if (command.equals("exit")) break;
-                else if (command.equals("client"))
-                    new Client();
-                else if (command.equals("server"))
-                    new Server();
-                else if (command.equals("ip"))
-                    System.out.println(getCurrentIP());
-                else if (command.equals("q")) break;
-                else System.out.println("Bad command!");
+                switch (command) {
+                    case "exit": case "q": break chat;
+                    case "client": new Client(); break;
+                    case "server": new Server(); break;
+                    case "ip":
+                        System.out.println(getCurrentIP());
+                        break;
+                    default:
+                        System.out.println("Bad command!");
+                        break;
+                }
             }
         }
         // GUI
         else {
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    ChatFrame gui = new ChatFrame();
-                }
-            });
+            SwingUtilities.invokeLater(ChatFrame::new);
         }
     }
 
@@ -71,8 +68,6 @@ public class UntitledChat {
                 if (ipAddress.split("\\.").length == 4) { // minimal IP validation
                     result = ipAddress;
                 }
-            } catch (MalformedURLException ex) {
-                ex.printStackTrace();
             } catch (IOException ex) {
                 ex.printStackTrace();
             } finally {

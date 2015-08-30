@@ -81,12 +81,7 @@ class JoinDialog extends JDialog {
                 }
             }
         });
-        bCancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-            }
-        });
+        bCancel.addActionListener(e -> setVisible(false));
     }
 
     public static boolean validate(final String ip){

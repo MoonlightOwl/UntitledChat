@@ -22,13 +22,14 @@ public class Server {
     private ServerSocket server;
 
     public Server() {
-        connections = Collections.synchronizedList(new ArrayList<Connection>());
+        connections = Collections.synchronizedList(new ArrayList<>());
 
         System.out.print("Creating server socket... ");
         try {
             server = new ServerSocket(Const.Port);
             System.out.println("Done. \nWaiting for clients.");
 
+            //noinspection InfiniteLoopStatement
             while(true){
                 Socket client = server.accept();
 
@@ -51,9 +52,7 @@ public class Server {
             server.close();
 
             synchronized (connections){
-                for (Connection connection : connections) {
-                    connection.close();
-                }
+                connections.forEach(Server.Connection::close);
             }
         } catch (Exception e) {
             System.err.println("Server: streams were not closed properly!");
@@ -116,6 +115,7 @@ public class Server {
                                 connection.out.println(nickname+": "+message);
                         }
                     }
+                    fromServer = false;
                 }
 
                 System.out.println("Server: "+nickname+" has left.");

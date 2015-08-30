@@ -8,6 +8,7 @@ package org.totoro;
  */
 
 public final class Const {
-    public static String IP = "37.55.85.121", Nickname = "Totoro";
-    public static int Port = 7777, Version = 1;
+    public static String IP = "127.0.0.1", Nickname = "Totoro";
+    public static int Port = 7777;
+    public static float Version = 1.2f;
 }
